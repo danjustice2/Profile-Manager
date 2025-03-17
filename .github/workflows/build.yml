@@ -23,7 +23,7 @@ jobs:
           pip install pyinstaller
 
       - name: Build executable
-        run: pyinstaller --onefile main.py
+        run: pyinstaller --onefile --noupx main.py
 
       - name: List dist directory
         run: dir dist
