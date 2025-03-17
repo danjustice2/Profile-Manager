@@ -22,10 +22,12 @@ jobs:
     - name: Generate version number
       id: version
       run: |
-        echo "version=$(date +'%Y.%m.%d')-${{github.run_number}}" >> $GITHUB_ENV
+        echo "version=$(date +'%Y.%m.%d')-${{ github.run_number }}" >> $GITHUB_ENV
+        echo "Version set to: $(date +'%Y.%m.%d')-${{ github.run_number }}"
     - name: Rename executable with version
       run: |
-        Rename-Item dist\main.exe local-profile-manager_${{ env.version }}.exe
+        echo "Renaming file with version: ${{ env.version }}"
+        Rename-Item dist\main.exe dist\local-profile-manager_${{ env.version }}.exe
         dir dist
     - name: Upload artifact
       uses: actions/upload-artifact@v4
