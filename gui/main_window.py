@@ -8,11 +8,18 @@ import hashlib
 import json
 from services import filesystem, network
 import os
+import uuid  # Import the uuid module
+
+from config import get_config
+
+CONFIG = get_config()
+
+print(CONFIG["network_drive"])
 
 class MainWindow:
     def __init__(self, root: tk.Tk):
         self.root = root
-        root.title("Dynamic Template Profil Manager")
+        root.title(f"Dynamic Template Profil Manager - {CONFIG['local_organization_name']}")
         root.geometry("400x200")
 
         frame = ttk.Frame(root, padding="10")
@@ -45,7 +52,7 @@ class MainWindow:
 
     def check_network(self) -> bool:
         if not net.network_drive_available():
-            messagebox.showerror("Network Error", "Network drive unavailable.")
+            messagebox.showerror("Netværkfejl", f"Netværksdrevet er utilgængeligt. Forbind til {CONFIG['local_organization_name']}s netværk og prøv igen.")
             return False
         return True
 
@@ -88,6 +95,13 @@ class MainWindow:
                 os.path.getmtime(network_path) > os.path.getmtime(local_path)
             ):
                 filesystem.copy_file(network_path, local_path)
+
+        # Generate UUIDs for profiles without UUIDs in metadata
+        for profile in self.profile_metadata.keys():
+            if isinstance(self.profile_metadata[profile], str):
+                self.profile_metadata[profile] = {'username': self.profile_metadata[profile]}
+            if 'uuid' not in self.profile_metadata[profile]:
+                self.profile_metadata[profile]['uuid'] = str(uuid.uuid4())
 
         self.save_metadata()
         messagebox.showinfo("Synkronisering fuldført.", "Dine profiler er blevet synkroniseret.")
