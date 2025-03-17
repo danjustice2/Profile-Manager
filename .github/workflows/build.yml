@@ -34,7 +34,7 @@ jobs:
       run: echo "::set-output name=version::$(date +'%Y.%m.%d')"
 
     - name: Rename executable with version
-      run: mv dist/local-profile-manager dist/local-profile-manager_$(date +'%Y.%m.%d').exe
+      run: mv dist/main dist/local-profile-manager_$(date +'%Y.%m.%d').exe
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
