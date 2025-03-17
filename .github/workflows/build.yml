@@ -26,6 +26,9 @@ jobs:
     - name: Build executable
       run: pyinstaller --onefile main.py
 
+    - name: List dist directory
+      run: ls -l dist
+
     - name: Generate version number
       id: version
       run: echo "::set-output name=version::$(date +'%Y.%m.%d')"
@@ -34,7 +37,7 @@ jobs:
       run: mv dist/local-profile-manager dist/local-profile-manager_$(date +'%Y.%m.%d').exe
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: executable
         path: dist/local-profile-manager_$(date +'%Y.%m.%d').exe
