@@ -19,8 +19,6 @@ jobs:
         pip install pyinstaller
     - name: Build executable
       run: pyinstaller --onefile --noupx --noconsole --add-data "config/config.json;config" main.py
-    - name: List dist directory
-      run: ls -l dist
     - name: Generate version number
       id: version
       run: echo "version=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
