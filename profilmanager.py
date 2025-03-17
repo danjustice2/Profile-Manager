@@ -90,7 +90,7 @@ def send_email():
         messagebox.showinfo("Succes", "Outlook mail åbnet!")
 
 def get_username():
-    return simpledialog.askstring("Brugernavn", "Indtast brugernavn for at importere profiler:")
+    return simpledialog.askstring("Brugernavn", "Indtast brugernavn som du vil importere profiler fra:")
 
 def get_profiles_dir():
     return os.path.join(os.getenv('APPDATA'), 'dynamictemplate', 'Profiler')
