@@ -28,13 +28,13 @@ jobs:
     - name: Rename executable with version
       run: |
         echo "Renaming file with version: ${{ env.version }}"
-        Rename-Item dist\main.exe dist\local-profile-manager_${{ env.version }}.exe
         dir dist
+        Rename-Item main.exe local-profile-manager_${{ env.version }}.exe
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: executable
-        path: dist/local-profile-manager_${{ env.version }}.exe
+        path: dist/local-profile-manager_v${{ env.version }}.exe
     - name: Create GitHub Release
       id: create_release
       uses: actions/create-release@v1
@@ -51,6 +51,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/local-profile-manager_${{ env.version }}.exe
-        asset_name: local-profile-manager_${{ env.version }}.exe
+        asset_path: dist/local-profile-manager_v${{ env.version }}.exe
+        asset_name: local-profile-manager_v${{ env.version }}.exe
         asset_content_type: application/octet-stream
