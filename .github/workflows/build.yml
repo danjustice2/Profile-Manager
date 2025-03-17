@@ -25,7 +25,9 @@ jobs:
       id: version
       run: echo "version=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
     - name: Rename executable with version
-      run: mv dist/main dist/local-profile-manager_${{ env.version }}.exe
+      run: |
+        Rename-Item dist\main.exe local-profile-manager_${{ env.version }}}.exe
+        dir dist
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
