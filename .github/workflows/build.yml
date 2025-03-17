@@ -21,7 +21,8 @@ jobs:
       run: pyinstaller --onefile --noupx --noconsole --add-data "config/config.json;config" main.py
     - name: Generate version number
       id: version
-      run: echo "version=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
+      run: |
+        echo "version=$(date +'%Y.%m.%d')-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
     - name: Rename executable with version
       run: |
         Rename-Item dist\main.exe local-profile-manager_${{ env.version }}.exe
