@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+env:
+  version: "${{ github.run_number }}"
 jobs:
   build:
     runs-on: windows-latest
@@ -13,12 +15,7 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.x'
-    - name: Generate version number
-      id: version
-      run: |
-        echo "version=$(date +'%Y.%m.%d')-${{ github.run_number }}" >> $GITHUB_ENV
-        echo "Version set to: $(date +'%Y.%m.%d')-${{ github.run_number }}"
-    - name: Print environment variables
+    - name: Print environment variables (debug)
       run: |
         echo "Version: ${{ env.version }}"
         echo "Python location: ${{ env.pythonLocation }}"
