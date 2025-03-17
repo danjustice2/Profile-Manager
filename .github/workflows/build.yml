@@ -29,7 +29,7 @@ jobs:
       run: |
         echo "Renaming file with version: ${{ env.version }}"
         cd dist
-        Rename-Item main.exe local-profile-manager_${{ env.version }}.exe
+        Rename-Item main.exe local-profile-manager_v${{ env.version }}.exe
     - name: Create GitHub Release
       id: create_release
       uses: actions/create-release@v1
