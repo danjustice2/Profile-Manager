@@ -26,11 +26,27 @@ class MainWindow:
         frame.pack(fill=tk.BOTH, expand=True)
 
         ttk.Button(frame, text="Importer profil", command=self.import_profile).pack(pady=10)
-        ttk.Button(frame, text="Eksporter profil", command=self.export_profile).pack(pady=10)
+
+        # Check network availability and write permissions
+        shared_profiles_dir = CONFIG["shared_profiles_dir"]
+        if net.network_drive_available() and self.has_write_permission(shared_profiles_dir):
+            ttk.Button(frame, text="Eksporter profil", command=self.export_profile).pack(pady=10)
+
         ttk.Button(frame, text="Synkroniser profiler", command=self.sync_profiles).pack(pady=10)
 
         self.metadata_file = os.path.join(network.resolve_local_profiles_dir(), "profile_metadata.json")
         self.load_metadata()
+
+    def has_write_permission(self, directory: str) -> bool:
+        """Check if the directory is writable by attempting to create a temporary file."""
+        try:
+            test_file = os.path.join(directory, ".write_test")
+            with open(test_file, "w") as f:
+                f.write("test")
+            os.remove(test_file)
+            return True
+        except (OSError, IOError):
+            return False
 
     def load_metadata(self):
         if os.path.exists(self.metadata_file):
