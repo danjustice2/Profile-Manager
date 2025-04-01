@@ -27,7 +27,7 @@ class MainWindow:
 
         ttk.Button(frame, text="Importer profil", command=self.import_profile).pack(pady=10)
         ttk.Button(frame, text="Eksporter profil", command=self.export_profile).pack(pady=10)
-        ttk.Button(frame, text="Synkroniser profiler", command=self.sync_profiles).pack(pady=10)
+        # ttk.Button(frame, text="Synkroniser profiler", command=self.sync_profiles).pack(pady=10)
 
         self.metadata_file = os.path.join(network.resolve_local_profiles_dir(), "profile_metadata.json")
         self.load_metadata()
