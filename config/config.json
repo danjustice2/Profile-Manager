@@ -1,7 +1,6 @@
 {
-    "network_drive": "J:\\",
-    "shared_profiles_dir": "J:\\VASP",
+    "network_drive": "Q:\\",
+    "shared_profiles_dir": "Q:\\DynamicTemplate\\Delte Profiler",
     "local_profiles_dir": "%APPDATA%\\dynamictemplate\\Profiler",
-    "shared_profiles_dir.old": "Q:\\DynamicTemplate\\Delte Profiler",
     "local_organization_name": "Tønder Kommune"
 }
