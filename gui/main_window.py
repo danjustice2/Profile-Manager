@@ -32,6 +32,17 @@ class MainWindow:
         self.metadata_file = os.path.join(network.resolve_local_profiles_dir(), "profile_metadata.json")
         self.load_metadata()
 
+    def has_write_permission(self, directory: str) -> bool:
+        """Check if the directory is writable by attempting to create a temporary file."""
+        try:
+            test_file = os.path.join(directory, ".write_test")
+            with open(test_file, "w") as f:
+                f.write("test")
+            os.remove(test_file)
+            return True
+        except (OSError, IOError):
+            return False
+
     def load_metadata(self):
         if os.path.exists(self.metadata_file):
             with open(self.metadata_file, 'r') as f:

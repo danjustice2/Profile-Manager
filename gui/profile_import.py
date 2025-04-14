@@ -7,7 +7,7 @@ from gui.widgets import ScrolledFrame
 from services import network, filesystem
 
 def open_import_window(parent):
-    username = simpledialog.askstring("Brugernavn", "Indtast brugernavn for at importere profiler:", parent=parent)
+    username = simpledialog.askstring("Brugernavn", "Indtast brugernavnet på den kollega, som har delt proflien:", parent=parent)
     
     if not username:
         return  # User clicked cancel or entered empty string
