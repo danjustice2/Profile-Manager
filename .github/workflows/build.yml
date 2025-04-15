@@ -39,6 +39,7 @@ jobs:
         with:
           certificate: '${{ secrets.SIGNING_CERTIFICATE }}'
           password: '${{ secrets.SIGNING_PASSWORD }}'
+          certificatesha1: '${{ secrets.CERTHASH }}'
           timestampUrl: 'http://timestamp.digicert.com'
           folder: 'dist'
           recursive: true
