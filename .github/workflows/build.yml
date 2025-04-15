@@ -36,7 +36,7 @@ jobs:
 
       - name: Sign the application
         run: |
-          signtool sign /f signing_certificate.pfx /p "${{ secrets.SIGNING_PASSWORD }}" /tr http://timestamp.digicert.com /td sha256 /fd sha256 dist/main.exe
+          "C:\Program Files (x86)\Windows Kits\10\bin\10.0.20348.0\x64\signtool.exe" sign /f signing_certificate.pfx /p "${{ secrets.SIGNING_PASSWORD }}" /tr http://timestamp.digicert.com /td sha256 /fd sha256 dist/main.exe
 
       - name: Rename output folder with version
         shell: pwsh
