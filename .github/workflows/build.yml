@@ -29,8 +29,10 @@ jobs:
           pyinstaller --onedir --noupx --noconsole --add-data "config/config.json;config" main.py
 
       - name: Download signing certificate
+        shell: pwsh
         run: |
-          echo "${{ secrets.SIGNING_CERTIFICATE }}" | base64 -d > signing_certificate.pfx
+          $certificate = "${{ secrets.SIGNING_CERTIFICATE }}"
+          [System.IO.File]::WriteAllBytes("signing_certificate.pfx", [System.Convert]::FromBase64String($certificate))
 
       - name: Sign the application
         run: |
