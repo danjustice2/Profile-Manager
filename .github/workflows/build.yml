@@ -34,15 +34,14 @@ jobs:
           $certificate = "${{ secrets.SIGNING_CERTIFICATE }}"
           [System.IO.File]::WriteAllBytes("signing_certificate.pfx", [System.Convert]::FromBase64String($certificate))
 
-      - name: Install Windows SDK
-        shell: cmd
-        run: |
-          choco install windows-sdk-10-version-2004 -y
-
-      - name: Sign the application
-        shell: cmd
-        run: |
-          "C:\Program Files (x86)\Windows Kits\10\bin\10.0.20348.0\x64\signtool.exe" sign /f signing_certificate.pfx /p "${{ secrets.SIGNING_PASSWORD }}" /tr http://timestamp.digicert.com /td sha256 /fd sha256 dist/main.exe
+      - name: Code Signing
+        uses: skymatic/code-sign-action@v1
+        with:
+          certificate: '${{ secrets.SIGNING_CERTIFICATE }}'
+          password: '${{ secrets.SIGNING_PASSWORD }}'
+          timestampUrl: 'http://timestamp.digicert.com'
+          folder: 'dist'
+          recursive: true
 
       - name: Rename output folder with version
         shell: pwsh
